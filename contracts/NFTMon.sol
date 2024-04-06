@@ -10,7 +10,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
     //add a storage called CID
     bytes32 public cid;
-    uint256 public constant middleValue = 57896044618658097711785492504343953926634992332820282019728792003956564819967;
+    uint256 public constant middleValue =
+        57896044618658097711785492504343953926634992332820282019728792003956564819967;
 
     struct nftMonToken {
         string name;
@@ -22,101 +23,121 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
         uint256 nftType;
     }
 
-    
+    nftMonToken nftMonCurrentToken;
 
-    nftMonToken public nftMonCurrentToken;
+    function getNFTMonCurrentToken() public view returns (nftMonToken memory) {
+        return (nftMonCurrentToken);
+    }
 
-    function setName ( string memory _name) public {
+    function setName(string memory _name) public {
         nftMonCurrentToken.name = _name;
     }
 
-    function setNFTType ( uint256 _nftTypeFather, uint256 _nftTypeMother, uint256 randomValue) public {
+    function setNFTType(
+        uint256 _nftTypeFather,
+        uint256 _nftTypeMother,
+        uint256 randomValue
+    ) public {
         uint256 _nftType;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             _nftType = _nftTypeFather;
-        }
-
-        else{
+        } else {
             _nftType = _nftTypeMother;
         }
 
         nftMonCurrentToken.nftType = _nftType;
     }
 
-    function setStamina ( uint256 _staminaFather, uint256 _staminaMother, uint256 randomValue) public {
+    function setStamina(
+        uint256 _staminaFather,
+        uint256 _staminaMother,
+        uint256 randomValue
+    ) public {
         uint256 fatherPercent = 0;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             fatherPercent = 7500;
-        }
-
-        else{
+        } else {
             fatherPercent = 2500;
         }
-        
-        uint256 _stamina = uint256(((_staminaFather * fatherPercent ) / 10000) + ((_staminaMother * (10000 - fatherPercent)) / 10000));
+
+        uint256 _stamina = uint256(
+            ((_staminaFather * fatherPercent) / 10000) +
+                ((_staminaMother * (10000 - fatherPercent)) / 10000)
+        );
         nftMonCurrentToken.stamina = _stamina;
     }
 
-    function setAttack ( uint256 _attackFather, uint256 _attackMother, uint256 randomValue) public {
+    function setAttack(
+        uint256 _attackFather,
+        uint256 _attackMother,
+        uint256 randomValue
+    ) public {
         uint256 fatherPercent = 0;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             fatherPercent = 7500;
-        }
-
-        else{
+        } else {
             fatherPercent = 2500;
         }
-        
-        uint256 _attack = ((_attackFather * fatherPercent ) / 10000) + ((_attackMother * (10000 - fatherPercent)) / 10000);
+
+        uint256 _attack = ((_attackFather * fatherPercent) / 10000) +
+            ((_attackMother * (10000 - fatherPercent)) / 10000);
         nftMonCurrentToken.hp = _attack;
     }
 
-    function setDefense ( uint256 _defenseFather, uint256 _defenseMother, uint256 randomValue) public {
+    function setDefense(
+        uint256 _defenseFather,
+        uint256 _defenseMother,
+        uint256 randomValue
+    ) public {
         uint256 fatherPercent = 0;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             fatherPercent = 7500;
-        }
-
-        else{
+        } else {
             fatherPercent = 2500;
         }
-        
-        uint256 _defense = ((_defenseFather * fatherPercent ) / 10000) + ((_defenseMother * (10000 - fatherPercent)) / 10000);
+
+        uint256 _defense = ((_defenseFather * fatherPercent) / 10000) +
+            ((_defenseMother * (10000 - fatherPercent)) / 10000);
         nftMonCurrentToken.hp = _defense;
     }
 
-    
-    function setSpeed ( uint256 _speedFather, uint256 _speedMother, uint256 randomValue) public {
+    function setSpeed(
+        uint256 _speedFather,
+        uint256 _speedMother,
+        uint256 randomValue
+    ) public {
         uint256 fatherPercent = 0;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             fatherPercent = 7500;
-        }
-
-        else{
+        } else {
             fatherPercent = 2500;
         }
-        
-        uint256 _speed = ((_speedFather * fatherPercent ) / 10000) + ((_speedMother * (10000 - fatherPercent)) / 10000);
+
+        uint256 _speed = ((_speedFather * fatherPercent) / 10000) +
+            ((_speedMother * (10000 - fatherPercent)) / 10000);
         nftMonCurrentToken.hp = _speed;
     }
 
-    function setHP ( uint256 _hpFather, uint256 _hpMother, uint256 randomValue) public {
+    function setHP(
+        uint256 _hpFather,
+        uint256 _hpMother,
+        uint256 randomValue
+    ) public {
         uint256 fatherPercent = 0;
 
-        if(randomValue > middleValue){
+        if (randomValue > middleValue) {
             fatherPercent = 7500;
-        }
-
-        else{
+        } else {
             fatherPercent = 2500;
         }
-        
-        uint256 _hp = ((_hpFather * fatherPercent ) / 10000) + ((_hpMother * (10000 - fatherPercent)) / 10000);
+
+        uint256 _hp = ((_hpFather * fatherPercent) / 10000) +
+            ((_hpMother * (10000 - fatherPercent)) / 10000);
         nftMonCurrentToken.hp = _hp;
     }
 
