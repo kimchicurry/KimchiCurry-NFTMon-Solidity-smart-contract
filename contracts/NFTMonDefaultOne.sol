@@ -7,10 +7,11 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
+contract NFTMonDefaultOne is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
     //add a storage called CID
     bytes32 public cid;
-    uint256 public constant middleValue = 57896044618658097711785492504343953926634992332820282019728792003956564819967;
+    uint256 public constant middleValue =
+        57896044618658097711785492504343953926634992332820282019728792003956564819967;
 
     struct nftMonToken {
         string name;
@@ -22,10 +23,16 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
         uint256 nftType;
     }
 
-    
-
-    nftMonToken public nftMonCurrentToken = nftMonToken ( { name: "Default One", hp: 20000, attack: 16000, defense: 12000, stamina: 100, speed: 13000, nftType: 1 });
-
+    nftMonToken public nftMonCurrentToken =
+        nftMonToken({
+            name: "Default One",
+            hp: 20000,
+            attack: 16000,
+            defense: 12000,
+            stamina: 100,
+            speed: 13000,
+            nftType: 1
+        });
 
     constructor(
         address initialOwner
