@@ -10,6 +10,39 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
     //add a storage called CID
     bytes32 public cid;
+    uint256 public constant middleValue = 57896044618658097711785492504343953926634992332820282019728792003956564819967;
+
+    struct nftMonToken {
+        string name;
+        string description;
+        uint256 level;
+        uint256 hp;
+        uint256 attack;
+        uint256 defense;
+        uint8 stamina;
+        uint256 speed;
+        uint8 nftType;
+    }
+
+    
+
+    nftMonToken public nftMonCurrentToken;
+
+
+    function setHP ( uint256 _hpFather, uint256 _hpMother, uint256 randomValue) public {
+        uint256 fatherPercent;
+
+        if(randomValue > middleValue){
+            fatherPercent = 7500;
+        }
+
+        else{
+            fatherPercent = 2500;
+        }
+        
+        uint256 _hp = ((_hpFather * fatherPercent ) / 10000) + ((_hpMother * (10000 - fatherPercent)) / 10000);
+        nftMonCurrentToken.hp = _hp;
+    }
 
     constructor(
         address initialOwner
