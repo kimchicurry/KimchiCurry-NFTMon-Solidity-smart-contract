@@ -14,8 +14,6 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
 
     struct nftMonToken {
         string name;
-        string description;
-        uint256 level;
         uint256 hp;
         uint256 attack;
         uint256 defense;
@@ -28,9 +26,87 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
 
     nftMonToken public nftMonCurrentToken;
 
+    function setName ( string memory _name) public {
+        nftMonCurrentToken.name = _name;
+    }
+
+    function setNFTType ( uint8 _nftTypeFather, uint8 _nftTypeMother, uint256 randomValue) public {
+        uint8 _nftType;
+
+        if(randomValue > middleValue){
+            _nftType = _nftTypeFather;
+        }
+
+        else{
+            _nftType = _nftTypeMother;
+        }
+
+        nftMonCurrentToken.nftType = _nftType;
+    }
+
+    function setStamina ( uint8 _staminaFather, uint8 _staminaMother, uint256 randomValue) public {
+        uint256 fatherPercent = 0;
+
+        if(randomValue > middleValue){
+            fatherPercent = 7500;
+        }
+
+        else{
+            fatherPercent = 2500;
+        }
+        
+        uint8 _stamina = uint8(((_staminaFather * fatherPercent ) / 10000) + ((_staminaMother * (10000 - fatherPercent)) / 10000));
+        nftMonCurrentToken.stamina = _stamina;
+    }
+
+    function setAttack ( uint256 _attackFather, uint256 _attackMother, uint256 randomValue) public {
+        uint256 fatherPercent = 0;
+
+        if(randomValue > middleValue){
+            fatherPercent = 7500;
+        }
+
+        else{
+            fatherPercent = 2500;
+        }
+        
+        uint256 _attack = ((_attackFather * fatherPercent ) / 10000) + ((_attackMother * (10000 - fatherPercent)) / 10000);
+        nftMonCurrentToken.hp = _attack;
+    }
+
+    function setDefense ( uint256 _defenseFather, uint256 _defenseMother, uint256 randomValue) public {
+        uint256 fatherPercent = 0;
+
+        if(randomValue > middleValue){
+            fatherPercent = 7500;
+        }
+
+        else{
+            fatherPercent = 2500;
+        }
+        
+        uint256 _defense = ((_defenseFather * fatherPercent ) / 10000) + ((_defenseMother * (10000 - fatherPercent)) / 10000);
+        nftMonCurrentToken.hp = _defense;
+    }
+
+    
+    function setSpeed ( uint256 _speedFather, uint256 _speedMother, uint256 randomValue) public {
+        uint256 fatherPercent = 0;
+
+        if(randomValue > middleValue){
+            fatherPercent = 7500;
+        }
+
+        else{
+            fatherPercent = 2500;
+        }
+        
+        uint256 _speed = ((_speedFather * fatherPercent ) / 10000) + ((_speedMother * (10000 - fatherPercent)) / 10000);
+        nftMonCurrentToken.hp = _speed;
+    }
 
     function setHP ( uint256 _hpFather, uint256 _hpMother, uint256 randomValue) public {
-        uint256 fatherPercent;
+        uint256 fatherPercent = 0;
 
         if(randomValue > middleValue){
             fatherPercent = 7500;
