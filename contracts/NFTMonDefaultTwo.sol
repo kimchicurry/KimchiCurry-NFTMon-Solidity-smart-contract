@@ -22,16 +22,18 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
         uint256 nftType;
     }
 
+    nftMonToken public nftMonCurrentToken = nftMonToken( { name: "Default Two", hp: 30000, attack: 14000, defense: 19000, stamina: 200, speed: 20000, nftType: 2 });
+
     
 
-    nftMonToken public nftMonCurrentToken;
+    
 
     function setName ( string memory _name) public {
         nftMonCurrentToken.name = _name;
     }
 
-    function setNFTType ( uint256 _nftTypeFather, uint256 _nftTypeMother, uint256 randomValue) public {
-        uint256 _nftType;
+    function setNFTType ( uint8 _nftTypeFather, uint8 _nftTypeMother, uint256 randomValue) public {
+        uint8 _nftType;
 
         if(randomValue > middleValue){
             _nftType = _nftTypeFather;
@@ -44,7 +46,7 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
         nftMonCurrentToken.nftType = _nftType;
     }
 
-    function setStamina ( uint256 _staminaFather, uint256 _staminaMother, uint256 randomValue) public {
+    function setStamina ( uint8 _staminaFather, uint8 _staminaMother, uint256 randomValue) public {
         uint256 fatherPercent = 0;
 
         if(randomValue > middleValue){
@@ -55,7 +57,7 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
             fatherPercent = 2500;
         }
         
-        uint256 _stamina = uint256(((_staminaFather * fatherPercent ) / 10000) + ((_staminaMother * (10000 - fatherPercent)) / 10000));
+        uint8 _stamina = uint8(((_staminaFather * fatherPercent ) / 10000) + ((_staminaMother * (10000 - fatherPercent)) / 10000));
         nftMonCurrentToken.stamina = _stamina;
     }
 
