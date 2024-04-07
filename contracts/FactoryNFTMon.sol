@@ -2,9 +2,10 @@
 pragma solidity ^0.8.20;
 
 import "./NFTMon.sol";
-import "./NFTMonDefaultOne.sol";
-import "./NFTMonDefaultTwo.sol";
-import "./NFTMonDefaultThree.sol";
+
+// import "./NFTMonDefaultOne.sol";
+// import "./NFTMonDefaultTwo.sol";
+// import "./NFTMonDefaultThree.sol";
 
 contract NFTFactory {
     address[] public deployedNFTs;
@@ -66,22 +67,30 @@ contract NFTFactory {
         deployedNFTs.push(address(newNFTMon));
     }
 
-    function createNFTMonDefaultOne() public {
-        NFTMonDefaultOne newNFTMonDefaultOne = new NFTMonDefaultOne(msg.sender);
-        deployedNFTs.push(address(newNFTMonDefaultOne));
+    function createNFTMonDefault(uint256 _number) public {
+        NFTMon newNFTMonDefault = new NFTMon(msg.sender);
+        //later call a defaultSet function that accepts _number as fn arg.
+        if (_number == 0) {
+            newNFTMonDefault.setDefault(0);
+        } else if (_number == 1) {
+            newNFTMonDefault.setDefault(1);
+        } else if (_number == 2) {
+            newNFTMonDefault.setDefault(2);
+        }
+        deployedNFTs.push(address(newNFTMonDefault));
     }
 
-    function createNFTMonDefaultTwo() public {
-        NFTMonDefaultTwo newNFTMonDefaultTwo = new NFTMonDefaultTwo(msg.sender);
-        deployedNFTs.push(address(newNFTMonDefaultTwo));
-    }
+    // function createNFTMonDefaultTwo() public {
+    //     NFTMonDefaultTwo newNFTMonDefaultTwo = new NFTMonDefaultTwo(msg.sender);
+    //     deployedNFTs.push(address(newNFTMonDefaultTwo));
+    // }
 
-    function createNFTMonDefaultThree() public {
-        NFTMonDefaultThree newNFTMonDefaultThree = new NFTMonDefaultThree(
-            msg.sender
-        );
-        deployedNFTs.push(address(newNFTMonDefaultThree));
-    }
+    // function createNFTMonDefaultThree() public {
+    //     NFTMonDefaultThree newNFTMonDefaultThree = new NFTMonDefaultThree(
+    //         msg.sender
+    //     );
+    //     deployedNFTs.push(address(newNFTMonDefaultThree));
+    // }
 
     function getDeployedNFTs() public view returns (address[] memory) {
         return deployedNFTs;

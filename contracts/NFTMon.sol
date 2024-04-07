@@ -29,6 +29,40 @@ contract NFTMon is ERC721, ERC721Pausable, Ownable, ERC721Burnable {
         return (nftMonCurrentToken);
     }
 
+    function setDefault(uint256 _number) external {
+        if (_number == 0) {
+            nftMonCurrentToken = nftMonToken({
+                name: "NFTMon",
+                hp: 5000000,
+                attack: 5000000,
+                defense: 5000000,
+                stamina: 5000000,
+                speed: 11000000,
+                nftType: 0
+            });
+        } else if (_number == 1) {
+            nftMonCurrentToken = nftMonToken({
+                name: "NFTMon",
+                hp: 7000000,
+                attack: 7000000,
+                defense: 7000000,
+                stamina: 7000000,
+                speed: 7000000,
+                nftType: 1
+            });
+        } else if (_number == 2) {
+            nftMonCurrentToken = nftMonToken({
+                name: "NFTMon",
+                hp: 3000000,
+                attack: 4000000,
+                defense: 2000000,
+                stamina: 5000000,
+                speed: 1000000,
+                nftType: 2
+            });
+        }
+    }
+
     function setName(string memory _name) public {
         nftMonCurrentToken.name = _name;
     }

@@ -10,4 +10,10 @@ module.exports = {
       }
     }
   },
+  networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545/" // URL of the local Hardhat node
+      // You can add other options here, like chainId, accounts, etc., if needed.
+    }
+  }
 };
