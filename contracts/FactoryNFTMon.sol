@@ -3,13 +3,16 @@ pragma solidity ^0.8.20;
 
 import "./NFTMon.sol";
 
-// import "./NFTMonDefaultOne.sol";
-// import "./NFTMonDefaultTwo.sol";
-// import "./NFTMonDefaultThree.sol";
-
 contract NFTFactory {
     address[] public deployedNFTs;
     uint256 someRandomNumber = 29387429384234;
+    mapping(address => uint256) monAmountPerUser;
+    //oriignal minter -> NFTs minted by minter
+    mapping(address => address[]) mintedNFTs;
+
+    //mintedNFTs(msg.sender) => address[]
+    //address[].ownerOf() => ownerAddresses
+    //If, ownerAddresses != connectedwallet => do not display.
 
     function setRandomNumber(uint256 _randomNumber) public {
         someRandomNumber = _randomNumber;
@@ -22,6 +25,8 @@ contract NFTFactory {
     ) public {
         //TODO access control
         NFTMon newNFTMon = new NFTMon(msg.sender);
+        monAmountPerUser[msg.sender]++;
+        mintedNFTs[msg.sender].push(address(newNFTMon));
         //we need to add call setter fns, based on the NFTs in the params.abi
         // uint256 someRandomNumber = 29387429384234;
         //Todo, with VRF, replace above line
@@ -69,6 +74,9 @@ contract NFTFactory {
 
     function createNFTMonDefault(uint256 _number) public {
         NFTMon newNFTMonDefault = new NFTMon(msg.sender);
+        monAmountPerUser[msg.sender]++;
+        mintedNFTs[msg.sender].push(address(newNFTMonDefault));
+
         //later call a defaultSet function that accepts _number as fn arg.
         if (_number == 0) {
             newNFTMonDefault.setDefault(0);
@@ -80,19 +88,17 @@ contract NFTFactory {
         deployedNFTs.push(address(newNFTMonDefault));
     }
 
-    // function createNFTMonDefaultTwo() public {
-    //     NFTMonDefaultTwo newNFTMonDefaultTwo = new NFTMonDefaultTwo(msg.sender);
-    //     deployedNFTs.push(address(newNFTMonDefaultTwo));
-    // }
-
-    // function createNFTMonDefaultThree() public {
-    //     NFTMonDefaultThree newNFTMonDefaultThree = new NFTMonDefaultThree(
-    //         msg.sender
-    //     );
-    //     deployedNFTs.push(address(newNFTMonDefaultThree));
-    // }
-
     function getDeployedNFTs() public view returns (address[] memory) {
         return deployedNFTs;
+    }
+
+    function getMonAmountPerUser(address _user) public view returns (uint256) {
+        return monAmountPerUser[_user];
+    }
+
+    function getMintedNFTs(
+        address _minter
+    ) public view returns (address[] memory) {
+        return mintedNFTs[_minter];
     }
 }
